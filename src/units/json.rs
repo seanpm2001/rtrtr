@@ -76,6 +76,11 @@ impl Json {
             error!("Unit {}: {}", component.name(), err);
             Terminated
         })?;
+        builder = builder.min_tls_version(
+            tls::Version::TLS_1_2
+        ).max_tls_version(
+            tls::Version::TLS_1_2
+        );
         if let Some(identity) = self.identity.as_ref() {
             let data = fs::read(identity).map_err(|err| {
                 error!("Unit {}: cannot read identity file {}: {}",
